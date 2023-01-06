@@ -75,7 +75,7 @@ while(start<=end):
         #최대한 덜 잘라야하니까 가능할 때 result로 저장
         result=mid
 
-print(result)
+print(result)min()
 # -
 
 
