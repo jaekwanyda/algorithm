@@ -31,3 +31,5 @@ def solution(topping):
         if len(top_set)==back_array[-i-2]:
             answer+=1
     return answer
+
+
