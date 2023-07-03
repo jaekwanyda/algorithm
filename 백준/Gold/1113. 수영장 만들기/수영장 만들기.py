@@ -30,6 +30,7 @@ def bfs(x,y):
             if array[nx][ny] <= me:
                 if nx == 0 or nx == n-1 or ny == 0 or ny == m-1:
                     poss = False
+                    break
                 else:
                     #이미 이번 bfs에서 방문하지 않은 경우만 방문
                     if not (nx, ny) in visit_set:
