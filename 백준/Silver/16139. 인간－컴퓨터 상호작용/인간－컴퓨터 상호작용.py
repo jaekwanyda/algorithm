@@ -9,7 +9,7 @@ s_list = list(s)
 #각 alphabet 개수를 저장해주자
 s_dict_list = [{} for _ in range(len(s)+1)]
 for i,j in enumerate(s_list):
-    s_dict_list[i+1] = copy.deepcopy(s_dict_list[i])
+    s_dict_list[i+1] = s_dict_list[i].copy()
     if j in s_dict_list[i+1]:
         s_dict_list[i+1][j] += 1
     else:
