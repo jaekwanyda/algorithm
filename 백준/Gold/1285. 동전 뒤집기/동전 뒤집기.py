@@ -12,26 +12,30 @@ for i,coin in enumerate(coins):
     for c in coin:
         tmp += coin_dict[c]
     coins[i] = int(tmp,2)
-# 결과값을 저장할 변수
+#바꿔주는 함수
 answer = float('inf')
-flip_coins = [int(coins[i])^(int('0b'+'1'*n,2)) for i in range(n)]
+ones= int('0b' + '1'*n,2)
+reverse_coins = [coins[depth]^ones for depth in range(n)]
 original = coins[:]
-# 가능한 각 동전 뒷면을 고려하여 결정
-for i in range(1 << n):  # 모든 가능한 결정을 확인
-    #동전 뒤집어주기
-    for j in range(n):
-        if i & (1 << j):  # 동전을 뒤집는 결정인 경우
-            coins[j] = flip_coins[j]
-    #세로로 T 개수 세주기. 만약 n 보다 많으면 뒤집어서 줄여주기
-    total_flips = 0  # 현재 결정에서의 뒷면 수
-    start = 1
-    for j in range(n):
-        flips = 0
-        for k in range(n):
-            if start & coins[k]:
-                flips += 1
-        total_flips += min(flips,n-flips)
-        start = start << 1
-    answer = min(answer, total_flips)
-    coins = original[:]
+def dfs(depth):
+    global answer
+    #전부 바꿨으면 결과값 기록
+    if depth == n:
+        s = 0
+        start = 0b1
+        for _ in range(n):
+            tmp = 0
+            for i in range(n):
+                if coins[i] & start:
+                    tmp += 1
+            tmp = min(tmp,n-tmp)
+            s += tmp
+            start = start << 1
+        answer = min(answer,s)
+    else:
+        coins[depth] = reverse_coins[depth] #뒤집어주기
+        dfs(depth+1)
+        coins[depth] = original[depth] #다시 돌려주기
+        dfs(depth+1)
+dfs(0)
 print(answer)
